@@ -97,6 +97,7 @@ function addListeners() {
 }
 
 
+
 function animaster() {
     return {
         _steps: [],
@@ -203,12 +204,12 @@ function animaster() {
         },
 
         buildHandler() {
-            const animationSteps = [...this._steps]; // Копируем шаги анимации
+            const animationSteps = [...this._steps];
             return function (event) {
                 const block = event.currentTarget.closest('.container').querySelector('.block');
                 if (block) {
                     const anim = animaster();
-                    anim._steps = animationSteps; // Передаём сохранённые шаги
+                    anim._steps = animationSteps;
                     anim.play(block);
                 }
             };
@@ -226,5 +227,6 @@ function getTransform(translation, ratio) {
     }
     return result.join(' ');
 }
+
 
 
