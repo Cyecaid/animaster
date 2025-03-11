@@ -1,43 +1,10 @@
 addListeners();
 
-function animaster() {
-    return {
-        fadeIn(element, duration) {
-            element.style.transitionDuration = `${duration}ms`;
-            element.classList.remove('hide');
-            element.classList.add('show');
-        },
-
-        fadeOut(element, duration) {
-            element.style.transitionDuration = `${duration}ms`;
-            element.classList.remove('show');
-            element.classList.add('hide');
-        },
-
-        move(element, duration, translation) {
-            element.style.transitionDuration = `${duration}ms`;
-            element.style.transform = this.getTransform(translation, null);
-        },
-
-        scale(element, duration, ratio) {
-            element.style.transitionDuration = `${duration}ms`;
-            element.style.transform = this.getTransform(null, ratio);
-        },
-    };
-}
-
-
 function addListeners() {
     document.getElementById('fadeInPlay')
         .addEventListener('click', function () {
             const block = document.getElementById('fadeInBlock');
             animaster().fadeIn(block, 5000);
-        });
-
-    document.getElementById('fadeOutPlay')
-        .addEventListener('click', function () {
-            const block = document.getElementById('fadeOutBlock');
-            animaster().fadeOut(block, 5000);
         });
 
     document.getElementById('movePlay')
@@ -51,6 +18,12 @@ function addListeners() {
             const block = document.getElementById('scaleBlock');
             animaster().scale(block, 1000, 1.25);
         });
+
+    document.getElementById('fadeOutPlay')
+        .addEventListener('click', function () {
+            const block = document.getElementById('fadeOutBlock');
+            animaster().fadeOut(block, 1000);
+        });
 }
 
 function getTransform(translation, ratio) {
@@ -62,4 +35,27 @@ function getTransform(translation, ratio) {
         result.push(`scale(${ratio})`);
     }
     return result.join(' ');
+}
+
+function animaster() {
+    return {
+        fadeIn(element, duration) {
+            element.style.transitionDuration = `${duration}ms`;
+            element.classList.remove('hide');
+            element.classList.add('show');
+        },
+        fadeOut(element, duration) {
+            element.style.transitionDuration = `${duration}ms`;
+            element.classList.remove('show');
+            element.classList.add('hide');
+        },
+        move(element, duration, translation) {
+            element.style.transitionDuration = `${duration}ms`;
+            element.style.transform = getTransform(translation, null);
+        },
+        scale(element, duration, ratio) {
+            element.style.transitionDuration = `${duration}ms`;
+            element.style.transform = getTransform(null, ratio);
+        },
+    }
 }
